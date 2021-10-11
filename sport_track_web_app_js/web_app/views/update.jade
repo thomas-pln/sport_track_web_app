@@ -1,0 +1,55 @@
+doctype html
+html(lang='fr')
+  head
+    meta(charset='UTF-8')
+    link(rel='stylesheet' href='./style.css')
+    title Document
+  body
+    nav
+      ul
+        li
+          a(href='./connexion.html') Se Connecter
+        li
+          a(href='./monCompte.html') Mes Informations
+        li
+          a(href='./signIn.html') Créer un compte
+        li
+          a(href='./depotActivite.html') Importer une activité
+    h1 Mes Informations / Modifier mes Informations
+    form(action='/modifyInfo.php' enctype='multipart/form-data')
+      label(for='fname') Nom: 
+      input#fname(type='text' name='fname' required='')
+      br
+      label(for='lname') Prénom: 
+      input#lname(type='text' name='lname' required='')
+      br
+      label(for='birthday') Date de naissance: 
+      input#birthday(type='date' name='birthday' required='')
+      br
+      div
+        label Sexe: 
+        br
+        label
+          input(type='radio' name='gender' value='H' required='')
+          | Homme
+        label
+          input(type='radio' name='gender' value='F')
+          | Femme
+        label
+          input(type='radio' name='gender' value='A')
+          | Autre
+      label(for='height') Taille
+      input#height(type='number' name='height' min='0' step='1' required='')
+      br
+      label(for='weight') Poids
+      input#weight(type='number' name='weight' min='0' step='1' required='')
+      br
+      label(for='emailA') Adresse électronique
+      br
+      input#emailA(type='email' name='emailA' required='')
+      br
+      label(for='pwd') Mot de passe (8 caratères minimum)
+      br
+      input#pwd(type='password' name='pwd' minlength='8' required='')
+      br
+      input(type='submit' value='Enregistrer les modifications')

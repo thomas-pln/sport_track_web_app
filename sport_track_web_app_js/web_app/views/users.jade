@@ -1,0 +1,44 @@
+doctype html
+html(lang='fr')
+  head
+    meta(charset='UTF-8')
+    link(rel='stylesheet' href='/stylesheets/style.css')
+    title Créer un compte
+  body.backgroundImg
+    .form-div
+      .form-content
+        form(method='POST' enctype='multipart/form-data' name='register')
+          p.form-title S'enregistrer
+          input#fname(type='text' name='fname' required='' placeholder='Nom*')
+          br
+          input#lname(type='text' name='lname' required='' placeholder='Prénom*')
+          br
+          input#emailA(type='email' name='emailA' required='' placeholder='Email*')
+          br
+          .group-input-section
+            p Date de naissance
+            input#birthday.input-nomarge(type='date' name='birthday' required='')
+          .group-input-section
+            label Sexe:
+            label
+              input.input-nomarge(type='radio' name='gender' value='H' required='')
+              | Homme
+            label
+              input.input-nomarge(type='radio' name='gender' value='F')
+              | Femme
+            label
+              input.input-nomarge(type='radio' name='gender' value='A')
+              | Autre
+          .group-input-section
+            p Taille en cm
+            input#height.input-nomarge(type='number' name='height' min='1' step='1' required='')
+            br
+          .group-input-section
+            p Poids en kg
+            input#weight.input-nomarge(type='number' name='weight' min='1' step='1' required='')
+            br
+          .group-input-section
+            input#pwd.input-nomarge(type='password' name='pwd' minlength='8' required='' placeholder='Mot de passe')
+            br
+            p 8 caratères minimum
+          input.btn(type='submit' value='Valider' name='register-submit')

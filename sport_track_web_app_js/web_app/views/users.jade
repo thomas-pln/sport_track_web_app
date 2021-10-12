@@ -7,13 +7,16 @@ html(lang='fr')
   body.backgroundImg
     .form-div
       .form-content
-        form( action='/' method='POST' enctype='multipart/form-data' name='register')
+        form( action='/users' method='POST' name='register')
           p.form-title S'enregistrer
           input#fname(type='text' name='fname' required='' placeholder='Nom*')
           br
           input#lname(type='text' name='lname' required='' placeholder='Prénom*')
           br
           input#emailA(type='email' name='emailA' required='' placeholder='Email*')
+          - if(typeof errMail !== 'undefined') {
+              p  #{errMail}
+          - }
           br
           .group-input-section
             p Date de naissance
@@ -42,3 +45,8 @@ html(lang='fr')
             br
             p 8 caratères minimum
           input.btn(type='submit' value='Valider' name='register-submit')
+          - if(typeof success !== 'undefined') {
+              - console.log("ok view")
+              p  #{success}
+          - }
+

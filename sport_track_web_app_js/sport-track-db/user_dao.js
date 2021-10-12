@@ -1,6 +1,7 @@
 var db = require('./sqlite_connection');
 
 var UserDAO = function(){
+
     this.insert = function(user){
         return new Promise((resolve, reject)=>{
             let query =`INSERT INTO User(fName, lName, sexe, birthday, height, weight, email, pwd) VALUES ("${user.fName}", "${user.lName}", "${user.sexe}", "${user.birthday}", ${user.height}, ${user.weight},"${user.email}", "${user.pwd}" )`;
@@ -51,6 +52,18 @@ var UserDAO = function(){
           });
         });        
     };
+
+    this.findByEmail = function(userEmail){
+      return new Promise((resolve, reject) => {
+          let query = `SELECT * FROM User WHERE email = "${userEmail}"`;
+        db.all(query, (error, rows) => {
+          if (error) {
+              reject(error);
+          }
+          resolve(rows);
+        });
+      });        
+  };
 
     this.findByKey = function(user, key){
         return new Promise((resolve, reject) => {

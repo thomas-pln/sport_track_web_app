@@ -1,0 +1,18 @@
+doctype html
+html(lang='fr')
+  head
+    meta(charset='UTF-8')
+    link(rel='stylesheet' href='resources/css/style.css')
+    title Connexion
+  body.backgroundImg
+    .form-div
+      .form-content
+        p.form-title Se Connecter
+        form(method='POST')
+          .group-input-section
+            p Adresse électronique
+            input#emailA.input-nomarge(type='email' name='emailA' required='')
+          .group-input-section
+            p Mot de passe
+            input#pwd.input-nomarge(type='password' name='pwd' required='')
+          input.input-nomarge.btn(type='submit' value='Se connecter' name='login-submit')

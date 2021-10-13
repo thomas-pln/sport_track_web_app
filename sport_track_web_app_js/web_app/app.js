@@ -4,12 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-
+var fileUpload = require('express-fileupload');
 
 
 var indexRouter = require('./routes/index');
 var users = require('./routes/users');
 var connect = require('./routes/connect');
+var upload = require('./routes/upload');
 
 var app = express();
 
@@ -26,10 +27,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload({createParentPath: true}));
 
 app.use('/', indexRouter);
 app.use('/users', users);
 app.use('/connect', connect);
+app.use('/upload', upload);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

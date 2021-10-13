@@ -2,12 +2,12 @@ doctype html
 html(lang='fr')
   head
     meta(charset='UTF-8')
-    link(rel='stylesheet' href='resources/css/style.css')
+    link(rel='stylesheet' href='/stylesheets/style.css')
     title Depot fichier nouvelle activite
   body.backgroundImg
     .form-div
       .form-content
-        form(method='POST' enctype='multipart/form-data')
+        form(method='POST' enctype="multipart/form-data")
           .group-input-section
             p Dépose ci-dessous une activité: 
             input#avatar.input-nomarge(type='file' name='actFile' accept='.json' required='')

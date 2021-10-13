@@ -27,7 +27,7 @@ var express = require('express');
         console.log("Ok");
         res.render("users", {success: "Félicitation, vous venez de créer votre compte !"});
       }else{
-        res.render("users", {success: "La création de votre compte à échoué :("});
+        res.render("users", {success: "La création de votre compte a échoué :("});
       }
     }
   }));

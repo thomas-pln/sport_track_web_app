@@ -12,7 +12,17 @@ html(lang='fr')
           .group-input-section
             p Adresse électronique
             input#emailA.input-nomarge(type='email' name='emailA' required='')
+            - if(typeof errUser !== 'undefined') {
+              p  #{errUser}
+            - }
           .group-input-section
             p Mot de passe
             input#pwd.input-nomarge(type='password' name='pwd' required='')
+            - if(typeof errPwd !== 'undefined') {
+              p  #{errPwd}
+            - }
           input.input-nomarge.btn(type='submit' value='Se connecter' name='login-submit')
+          - if(typeof success !== 'undefined') {
+              - console.log("ok view")
+              p  #{success}
+          - }

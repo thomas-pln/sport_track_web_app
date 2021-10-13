@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var fileUpload = require('express-fileupload');
-
+var session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var users = require('./routes/users');
@@ -28,6 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload({createParentPath: true}));
+app.use(session({secret:"dora_lexploratrice",resave:false,saveUninitialized:true,cookie:{secure:false}}));
 
 app.use('/', indexRouter);
 app.use('/users', users);

@@ -3,7 +3,7 @@ var db = require('./sqlite_connection');
 var ActivityEntryDAO = function(){
     this.insert = function(data){
             return new Promise((resolve, reject)=>{
-                let query = `INSERT INTO Data(time, cardio, long, lat, alti, dataAct) VALUES ("${data.time}",${data.cardio},${data.long},${data.lat},${data.alti},"${data.dataAct})"`;
+                let query = `INSERT INTO Data(time, cardio, long, lat, alti, dataAct) VALUES ("${data.time}",${data.cardio},${data.long},${data.lat},${data.alti},"${data.dataAct}")`;
               db.run(query, (error)=>{
                 if (error) {
                   reject(error);

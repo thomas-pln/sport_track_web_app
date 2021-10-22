@@ -8,7 +8,7 @@ router.get('/',(req,res) => {
         if(err) {
             return console.log(err);
         }
-        res.render('/connect');
+        res.redirect('/connect');
     });
     //req.session.email = null;
 

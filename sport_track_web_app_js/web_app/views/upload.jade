@@ -15,3 +15,6 @@ html(lang='fr')
             br
             div
               input.btn(type='submit' value='Valider' name='uploadAct-submit')
+              - if(typeof errUser !== 'undefined') {
+                p  #{state}
+              - }

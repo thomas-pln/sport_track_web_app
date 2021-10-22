@@ -2,41 +2,27 @@ doctype html
 html(lang='fr')
   head
     meta(charset='UTF-8')
-    link(rel='stylesheet' href='resources/css/style.css')
+    link(rel='stylesheet' href='/stylesheets/style.css')
     title Mes activités
   body.backgroundImg
-    | ";
-    | echo    "
-    span
-      p.info Nom: ".$_SESSION['lName']."
-      | ";
-      |             echo    "
-      p.info Prénom: ".$_SESSION['fName'] ."
-      | ";
-      |             echo    "
-      p.info email: ".$_SESSION['email']."
-      | ";
-      |             echo    "
-      p.info Date de naissance: ".$_SESSION['birthday']."
-      | ";
-      |             echo    "
-      p.info Sexe: ".$_SESSION['sexe']."
-      | ";
-      |             echo    "
-      p.info Taille: ".$_SESSION['height']."
-      | ";
-      |             echo    "
-      p.info Poids: ".$_SESSION['weight']."
-    | ";
-    |             echo "";
-    |             echo "
+    .infos
+      span
+        - let fName = user.fName
+        p.info Nom: #{fName}
+        - let lName = user.lName
+        p.info Prénom: #{lName}
+        - let email = user.email
+        p.info email: #{email}
+        - let birth = user.birthday
+        p.info Date de naissance: #{birthday}
+        - let sexe = user.sexe
+        p.info Sexe: #{sexe}
+        - let height = user.height
+        p.info Taille: #{height}
+        - let weight = user.weight
+        p.info Poids: #{weight}
     .activity-div
-      | ";
-      | echo "";
-      | foreach($_SESSION['activity'] as $activity){
-      | echo    "";
-      | }
-      | echo "
+
       table
         thead
           tr
@@ -50,27 +36,16 @@ html(lang='fr')
             th Fréquence moy
             th Fréquence max
         tbody
-          tr
-            td ".$activity->getIdAct()."
-            td ".$activity->getDate()."
-            td ".$activity->getDescription()."
-            td ".$activity->getDistance()."
-            td ".$activity->getTotalTime()."
-            td ".$activity->getStartTime()."
-            td ".$activity->getFreqMin()."
-            td ".$activity->getFreqMoy()."
-            td ".$activity->getFreqMax()."
-      | ";
-      |             echo "
-    | ";
-    |         }elseif(isset($_SESSION) && empty($_SESSION[`activity`])){
-    |             echo "
-    p
-      | Vous n`avez pas encore importé d`activité";
-      | }else{
-      | echo `
-    p Vous devez être connecté.e 
-    p
-      | `;
-      | }
-      | ?>
+          - console.log(data);
+          each act in data
+            - console.log(act);
+            tr
+              td= act
+              td= act.date
+              td= act.description
+              td= act.distance
+              td= act.ttTime
+              td= act.startTime
+              td= act.freqMin
+              td= act.freqMoy
+              td= act.freqMax

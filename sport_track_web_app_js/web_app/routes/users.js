@@ -10,11 +10,8 @@ var express = require('express');
   
   router.post('/', asyncMiddleware(async (req, res)=> {
     console.log(req.body);
-
     let users = await user_dao.findByEmail(req.body.emailA);
-
     console.log(users);
-
     if(users.length>0){
       res.render("users", {errMail : "Email déjà utilisée"})
     }else{

@@ -7,14 +7,8 @@ var user_dao = require('sport-track-db').user_dao;
     
     console.log(req.session);
     console.log(req.session.logged );
+    res.render("connect");
 
-    if(req.session.logged == true){
-
-      res.render("activities", {errConnect : "Utilisateur déjà connecté."})
-    
-    }else{
-      res.render("connect");
-    }
   }))
   
   router.post('/', asyncMiddleware(async (req, res)=> {
@@ -22,7 +16,7 @@ var user_dao = require('sport-track-db').user_dao;
     let password = req.body.pwd;
 
     let users = await user_dao.findByEmail(email);
-    console.log(req.body);
+    console.log(users);
 
     if(users.length == 0){
 
@@ -34,8 +28,9 @@ var user_dao = require('sport-track-db').user_dao;
 
         req.session.logged = true;
         req.session.email = email;
+        req.session.id = users[0].idUser;
         console.log("Ok");
-        res.render("activities", {success: "Vous êtes connecté. Redirection en cours..."});
+        res.render("connect", {success: "Vous êtes connecté."});
       
       }else{
         res.render("connect", {success: "Mot de passe incorrect."});

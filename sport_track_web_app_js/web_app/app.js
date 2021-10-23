@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload({createParentPath: true}));
 app.use(session({secret:"dora_lexploratrice",resave:false,saveUninitialized:true,cookie:{secure:false}}));
 
-app.use('/', indexRouter);
+app.use('/', activities);
 app.use('/users', users);
 app.use('/connect', connect);
 app.use('/upload', upload);

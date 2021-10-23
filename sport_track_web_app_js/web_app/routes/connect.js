@@ -4,9 +4,6 @@ var router = express.Router();
 var user_dao = require('sport-track-db').user_dao;
    
    router.get('/', asyncMiddleware(async (req, res, next) => {
-    
-    console.log(req.session);
-    console.log(req.session.logged );
     res.render("connect");
 
   }))
@@ -16,7 +13,6 @@ var user_dao = require('sport-track-db').user_dao;
     let password = req.body.pwd;
 
     let users = await user_dao.findByEmail(email);
-    console.log(users);
 
     if(users.length == 0){
 
@@ -28,10 +24,8 @@ var user_dao = require('sport-track-db').user_dao;
 
         req.session.logged = true;
         req.session.email = email;
-        req.session.id = users[0].idUser;
-        console.log("Ok");
+        req.session.idUser = users[0].idUser;
         res.render("connect", {success: "Vous êtes connecté."});
-      
       }else{
         res.render("connect", {success: "Mot de passe incorrect."});
       

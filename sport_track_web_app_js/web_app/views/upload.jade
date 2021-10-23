@@ -5,6 +5,7 @@ html(lang='fr')
     link(rel='stylesheet' href='/stylesheets/style.css')
     title Depot fichier nouvelle activite
   body.backgroundImg
+    include ./header.jade
     .form-div
       .form-content
         form(method='POST' enctype="multipart/form-data")
@@ -15,6 +16,6 @@ html(lang='fr')
             br
             div
               input.btn(type='submit' value='Valider' name='uploadAct-submit')
-              - if(typeof errUser !== 'undefined') {
+              - if(typeof state !== 'undefined') {
                 p  #{state}
               - }

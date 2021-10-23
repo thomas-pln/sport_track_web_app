@@ -38,9 +38,9 @@ var ActivityDAO = function(){
       });
     }
 
-    this.userActiv = function(user){
+    this.userActiv = function(idUser){
       return new Promise((resolve, reject) => {
-        let query = `SELECT * FROM Activity WHERE refUser = "${user.idUser}"`;
+        let query = `SELECT * FROM Activity WHERE refUser = ${idUser}`;
         db.all(query, (error, rows) => {
           if (error) {
               reject(error);

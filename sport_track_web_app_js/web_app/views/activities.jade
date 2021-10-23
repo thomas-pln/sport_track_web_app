@@ -5,6 +5,7 @@ html(lang='fr')
     link(rel='stylesheet' href='/stylesheets/style.css')
     title Mes activités
   body.backgroundImg
+    include ./header.jade
     .infos
       span
         - let fName = user.fName
@@ -36,11 +37,9 @@ html(lang='fr')
             th Fréquence moy
             th Fréquence max
         tbody
-          - console.log(data);
           each act in data
-            - console.log(act);
             tr
-              td= act
+              td= act.idAct
               td= act.date
               td= act.description
               td= act.distance

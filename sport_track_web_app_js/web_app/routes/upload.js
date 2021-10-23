@@ -11,52 +11,42 @@ var activity_entry_dao = require('sport-track-db').activity_entry_dao;
    
    router.get('/', asyncMiddleware(async (request, response, next) => {
      if(request.session.logged == true){
-       response.render("upload");
+      response.render("upload");
      }else{
        response.redirect("/connect"/*, {success : "Connectez vous pour importer vos activités."}*/)
      }
   }))
   
   router.post('/', asyncMiddleware(async (req, res)=> {
-    console.log(req.files.actFile);
     let content = req.files.actFile.data.toString('utf-8');
     let json = JSON.parse(content); 
-    console.log(json);
 
     let activity_date = json['activity']['date'];
     let activity_description = json['activity']['description'];
     let distance = calculDistance.calculDistanceTrajet(json);
 
+    let d1 = new Date(`${json['activity']['date']} ${json['data'][0]['time']}`);
+    let d2 = new Date(`${json['activity']['date']} ${json['data'][json['data'].length-1]['time']}`);
+    let diff = Math.abs(d1 - d2);
+    let options = {minute: "numeric", second: "numeric", hour12: false};
+    let timeDiff = new Intl.DateTimeFormat("fr-FR", options).format(diff);
+    console.log('d1: '+d1+"\nd2"+d2+'\n'+diff+'\ntimediff'+timeDiff);
 
-    var msToTime = (duration) =>{
-      var milliseconds = parseInt((duration % 1000) / 100),
-      seconds = Math.floor((duration / 1000) % 60),
-      minutes = Math.floor((duration / (1000 * 60)) % 60),
-      hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-  
-      hours = (hours < 10) ? "0" + hours : hours;
-      minutes = (minutes < 10) ? "0" + minutes : minutes;
-      seconds = (seconds < 10) ? "0" + seconds : seconds;
-  
-      return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
-    }
+    let activity = {idAct:req.files.actFile.name, date:activity_date, description:activity_description, distance: distance, startTime: json['data'][0]['time'], ttTime:timeDiff, refUser:req.session.idUser};
+    try{
+      let insertedAct = await activity_dao.insert(activity);
 
-    let diff = new Date(`${json['activity']['date']} ${json['data'][0]['time']}`) - new Date(`${json['activity']['date']} ${json['data'][json['data'].length-1]['time']}`);
-    let timeDiff = msToTime(diff);
-    console.log(timeDiff);
-    let activity = {idAct:req.files.actFile.name, date:activity_date, description:activity_description, distance: distance, startTime: json['data'][0]['time'], ttTime:timeDiff, refUser:req.session.id};
-    console.log(activity);
-    let insertedAct = await activity_dao.insert(activity);
-
-    for(data of json['data']){
-      let dataAct = {time:data['time'], cardio:data['cardio_frequency'], long:data['latitude'], lat:data['longitude'], alti:data['altitude'], dataAct:req.files.actFile.name};
-      await activity_entry_dao.insert(dataAct);
-    }
-
-    if(insertedAct){
-      res.redirect('/activities');
-    }else{
-      res.render("upload", {state: "Le fichier n'a pas pu être importé"})
+      for(data of json['data']){
+        let dataAct = {time:data['time'], cardio:data['cardio_frequency'], long:data['latitude'], lat:data['longitude'], alti:data['altitude'], dataAct:req.files.actFile.name};
+        await activity_entry_dao.insert(dataAct);
+      }
+      if(insertedAct){
+        res.redirect('/activities');
+      }else{
+        res.render("upload", {state: "Le fichier n'a pas pu être importé"})
+      }
+    }catch(e){
+      res.render("upload", {state: "L'activité est déjà existante"})
     }
   }));
 

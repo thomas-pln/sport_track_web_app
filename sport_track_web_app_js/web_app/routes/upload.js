@@ -17,20 +17,23 @@ var activity_entry_dao = require('sport-track-db').activity_entry_dao;
      }
   }))
   
+  /**
+   * Traite l'envoie du fichier de données d'une nouvelle activité
+   */
   router.post('/', asyncMiddleware(async (req, res)=> {
     let content = req.files.actFile.data.toString('utf-8');
-    let json = JSON.parse(content); 
+    let json = JSON.parse(content);  //Contenu du fichier
 
     let activity_date = json['activity']['date'];
     let activity_description = json['activity']['description'];
-    let distance = calculDistance.calculDistanceTrajet(json);
+    let distance = calculDistance.calculDistanceTrajet(json); //Calcul distance
 
+    //Calcul de durée de l'activité
     let d1 = new Date(`${json['activity']['date']} ${json['data'][0]['time']}`);
     let d2 = new Date(`${json['activity']['date']} ${json['data'][json['data'].length-1]['time']}`);
     let diff = Math.abs(d1 - d2);
     let options = {minute: "numeric", second: "numeric", hour12: false};
     let timeDiff = new Intl.DateTimeFormat("fr-FR", options).format(diff);
-    console.log('d1: '+d1+"\nd2"+d2+'\n'+diff+'\ntimediff'+timeDiff);
 
     let activity = {idAct:req.files.actFile.name, date:activity_date, description:activity_description, distance: distance, startTime: json['data'][0]['time'], ttTime:timeDiff, refUser:req.session.idUser};
     try{
@@ -46,6 +49,7 @@ var activity_entry_dao = require('sport-track-db').activity_entry_dao;
         res.render("upload", {state: "Le fichier n'a pas pu être importé"})
       }
     }catch(e){
+      //Si il y a une erreur c'est probablement que l'activité existe déjà
       res.render("upload", {state: "L'activité est déjà existante"})
     }
   }));

@@ -8,6 +8,9 @@ var user_dao = require('sport-track-db').user_dao;
 
   }))
   
+  /**
+   * Post du formulaire de connection
+   */
   router.post('/', asyncMiddleware(async (req, res)=> {
     let email = req.body.emailA;
     let password = req.body.pwd;
@@ -15,13 +18,12 @@ var user_dao = require('sport-track-db').user_dao;
     let users = await user_dao.findByEmail(email);
 
     if(users.length == 0){
-
       res.render("connect", {errUser : "Utilisateur incorrect. Veuillez créer un compte en premier."})
-    
     }else{
 
       if(users[0].pwd === password){
 
+        //Initialise les données de la var de session
         req.session.logged = true;
         req.session.email = email;
         req.session.idUser = users[0].idUser;

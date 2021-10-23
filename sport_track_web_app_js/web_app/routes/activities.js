@@ -6,9 +6,9 @@ var express = require('express');
    
    router.get('/', asyncMiddleware(async (request, response, next) => {
     if(request.session.logged == true){
-      let users = await user_dao.findByEmail(request.session.email);
+      let users = await user_dao.findByEmail(request.session.email); //Informations de l'utilisateur de la session
       console.log(request.session);
-      let activities = await activity_dao.userActiv(request.session.idUser);
+      let activities = await activity_dao.userActiv(request.session.idUser); //Les activités de l'utilisateur de la session
       console.log(activities);
       response.render("activities", {data:activities, user:users[0]});
     }else{

@@ -1,6 +1,11 @@
 var db = require('./sqlite_connection');
 
 var ActivityEntryDAO = function(){
+  /**
+   * Insère une donnée d'une activité dans la base
+   * @param {*} data 
+   * @returns 
+   */
     this.insert = function(data){
             return new Promise((resolve, reject)=>{
                 let query = `INSERT INTO Data(time, cardio, long, lat, alti, dataAct) VALUES ("${data.time}",${data.cardio},${data.long},${data.lat},${data.alti},"${data.dataAct}")`;
@@ -13,6 +18,10 @@ var ActivityEntryDAO = function(){
             });
         }
 
+        /**
+         * Retourne toutes les données de toute les activités
+         * @returns
+         */
     this.findAll = function(){
         return new Promise((resolve, reject) => {
             let query = `SELECT * FROM Data`;
@@ -25,6 +34,11 @@ var ActivityEntryDAO = function(){
         });
     }
 
+    /**
+     * Supprime une donnée
+     * @param {*} data 
+     * @returns 
+     */
     this.delete = function(data){
       return new Promise((resolve, reject)=>{
           let query = `DELETE FROM Data WHERE idData = ${data.idData}`;
@@ -50,6 +64,11 @@ var ActivityEntryDAO = function(){
     }
         
 
+    /**
+     * Met à jour une donnée
+     * @param {} data 
+     * @returns 
+     */
     this.update = function(data){
       return new Promise((resolve, reject) => {
         let query = `UPDATE Data SET cardio=${data.cardio}, long=${data.long}, lat=${data.lat}, alti=${data.alti} WHERE ${data.idData} = idData`;

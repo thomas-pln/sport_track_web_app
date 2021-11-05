@@ -1,5 +1,4 @@
 <?php
-//Lisa Le Goff Mauvoisin | Thomas Poulain - 2A
 
     require_once('SQLiteConnection.php');
     require_once('User.php');

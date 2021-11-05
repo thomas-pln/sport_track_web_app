@@ -1,5 +1,4 @@
 <?php
-//Lisa Le Goff Mauvoisin | Thomas Poulain - 2A
 
     require('model/User.php');
     require('model/UserDAO.php');

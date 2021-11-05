@@ -1,5 +1,4 @@
 <?php
-//Lisa Le Goff Mauvoisin | Thomas Poulain - 2A
 
 class ApplicationController{
     private static $instance;

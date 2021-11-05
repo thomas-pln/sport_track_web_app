@@ -1,6 +1,5 @@
 
 /**
-Lisa Le Goff Mauvoisin | Thomas Poulain - 2A
 
 Schéma relationnel:
 

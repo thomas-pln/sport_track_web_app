@@ -1,5 +1,4 @@
 <?php
-//Lisa Le Goff Mauvoisin | Thomas Poulain - 2A
 
     ini_set('display_errors', 'On');
     error_reporting(E_ALL);
